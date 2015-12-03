@@ -46,7 +46,7 @@ class Picking(API):
             'ccc': self.ccc,
             'servicio': data.get('servicio', '1'),
             'product': data.get('product', '2'),
-            'total_bultos': data.get('total_bultos', '1'),
+            'total_bultos': data.get('total_bultos', 1),
             'total_kilos': data.get('total_kilos', '1'),
             'peso_bulto': data.get('peso_bulto', '1'),
             'observaciones': data.get('observaciones', ''),
@@ -188,7 +188,7 @@ class Picking(API):
             'ccc': self.ccc,
             'servicio': data.get('servicio', '1'),
             'product': data.get('product', '2'),
-            'total_bultos': data.get('total_bultos', '1'),
+            'total_bultos': data.get('total_bultos', 1),
             'total_kilos': data.get('total_kilos', '1'),
             'peso_bulto': data.get('peso_bulto', '1'),
             'observaciones': data.get('observaciones', ''),
@@ -292,7 +292,7 @@ class Picking(API):
         dom = parseString(result)
         info = dom.getElementsByTagName('out')
         data = info[0].firstChild.data
-        dom2 = parseString(data)
+        dom2 = parseString(data.encode('utf-8'))
         registros = dom2.getElementsByTagName('REGISTROS')
 
         total = registros[0].childNodes.length
@@ -331,7 +331,7 @@ class Picking(API):
         info = dom.getElementsByTagName('ns1:out')
         data = info[0].firstChild.data
 
-        dom2 = parseString(data)
+        dom2 = parseString(data.encode('utf-8'))
         registros = dom2.getElementsByTagName('REGISTROS')
 
         total = registros[0].childNodes.length
