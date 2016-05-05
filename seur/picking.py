@@ -55,6 +55,7 @@ class Picking(API):
             'clave_portes': data.get('clave_portes', 'F'), # F: Facturacion
             'clave_reembolso': data.get('clave_reembolso', 'F'), # F: Facturacion
             'valor_reembolso': data.get('valor_reembolso', ''),
+            'es_cambio': data.get('es_cambio', 'N'),
             'cliente_nombre': data.get('cliente_nombre', ''),
             'cliente_direccion': data.get('cliente_direccion', ''),
             'cliente_tipovia': data.get('cliente_tipovia', 'CL'),
@@ -69,8 +70,12 @@ class Picking(API):
             'cliente_email': data.get('cliente_email', ''),
             'cliente_telefono': data.get('cliente_telefono', ''),
             'cliente_atencion': data.get('cliente_atencion', ''),
+            'aviso_preaviso': data.get('aviso_preaviso', 'N'),
+            'aviso_reparto': data.get('aviso_reparto', 'N'),
+            'aviso_email': data.get('aviso_email', 'N'),
+            'aviso_sms': data.get('aviso_sms', 'N'),
             'id_mercancia': data.get('id_mercancia', ''),
-            }
+        }
 
         if not self.context.get('pdf'):
             vals['printer'] = self.context.get('printer', 'ZEBRA')
@@ -78,6 +83,9 @@ class Picking(API):
             vals['ecb_code'] = self.context.get('ecb_code', '2C')
 
         url = 'http://cit.seur.com/CIT-war/services/ImprimirECBWebService'
+        if self.is_test_config:
+            url = 'http://citpre.seur.com/CIT-war/services/'\
+                'ImprimirECBWebService'
         xml = tmpl.generate(**vals).render()
 
         result = self.connect(url, xml)
@@ -107,6 +115,125 @@ class Picking(API):
                 label = traza[0].firstChild.data
 
         return reference, label, error
+
+    def pickup_service(self, data):
+        tmpl = loader.load('pickup_service.xml')
+
+        if not self.ws_username or not self.ws_password:
+            raise Exception(
+                'You have not set the username and password for ws.seur.com '
+                'and are necessary for a pickup service.')
+
+        vals = {
+            'username': self.ws_username,
+            'password': self.ws_password,
+            'nombre_empresa': data.get('nombre_empresa', ''),
+            'razon_social': data.get('razon_social', ''),
+
+            'ccc_ordenante': data.get('ccc_ordenante'),
+            'pais_nif_ordenante': data.get('pais_nif_ordenante'),
+            'nif_ordenante': data.get('nif_ordenante'),
+            'nombre_ordenante': data.get('nombre_ordenante'),
+            'apellidos_ordenante': data.get('apellidos_ordenante', '.'),
+            'cp_ordenante': data.get('cp_ordenante'),
+            'tipo_via_ordenante': data.get('tipo_via_ordenante', 'CL'),
+            'calle_ordenante': data.get('calle_ordenante'),
+            'tipo_num_ordenante': data.get('tipo_num_ordenante', 'IN'),
+            'num_ordenante': data.get('num_ordenante', ''),
+            'escalera_ordenante': data.get('escalera_ordenante', '.'),
+            'piso_ordenante': data.get('piso_ordenante', '.'),
+            'puerta_ordenante': data.get('puerta_ordenante', '.'),
+            'poblacion_ordenante': data.get('poblacion_ordenante'),
+            'provincia_ordenante': data.get('provincia_ordenante'),
+            'pais_ordenante': data.get('pais_ordenante'),
+            'idioma_ordenante': data.get('idioma_ordenante'),
+            'pref_fax_ordenante': data.get('pref_fax_ordenante', ''),
+            'fax_ordenante': data.get('fax_ordenante', ''),
+            'mail_ordenante': data.get('mail_ordenante'),
+            'pref_tel_ordenante': data.get('pref_tel_ordenante'),
+            'tel_ordenante': data.get('tel_ordenante'),
+
+            'razon_social_origen': data.get('razon_social_origen', ''),
+            'nif_origen': data.get('nif_origen'),
+            'nombre_origen': data.get('nombre_origen'),
+            'apellidos_origen': data.get('apellidos_origen', '.'),
+            'cp_origen': data.get('cp_origen'),
+            'tipo_via_origen': data.get('tipo_via_origen', 'CL'),
+            'calle_origen': data.get('calle_origen'),
+            'tipo_num_origen': data.get('tipo_num_origen', 'IN'),
+            'num_origen': data.get('num_origen', ''),
+            'escalera_origen': data.get('escalera_origen', '.'),
+            'piso_origen': data.get('piso_origen', '.'),
+            'puerta_origen': data.get('puerta_origen', '.'),
+            'poblacion_origen': data.get('poblacion_origen'),
+            'provincia_origen': data.get('provincia_origen'),
+            'pais_origen': data.get('pais_origen'),
+            'pais_nif_origen': data.get('pais_nif_origen'),
+            'pref_tel_origen': data.get('pref_tel_origen'),
+            'tel_recogida_origen': data.get('tel_recogida_origen'),
+
+            'razon_social_destino': data.get('razon_social_destino', ''),
+            'nombre_destino': data.get('nombre_destino'),
+            'apellidos_destino': data.get('', '.'),
+            'cp_destino': data.get('cp_destino'),
+            'tipo_via_destino': data.get('tipo_via_destino', 'CL'),
+            'calle_destino': data.get('calle_destino'),
+            'tipo_num_destino': data.get('tipo_num_destino', 'IN'),
+            'num_destino': data.get('num_destino', ''),
+            'escalera_destino': data.get('escalera_destino', '.'),
+            'piso_destino': data.get('piso_destino', '.'),
+            'puerta_destino': data.get('puerta_destino', '.'),
+            'poblacion_destino': data.get('poblacion_destino'),
+            'provincia_destino': data.get('provincia_destino'),
+            'pais_destino': data.get('pais_destino'),
+            'pref_tel_destino': data.get('pref_tel_destino'),
+            'tel_destino': data.get('tel_destino'),
+
+            'mercancia': data.get('mercancia', '2'),
+            'num_bultos': data.get('num_bultos', '1'),
+            'lista_bultos': data.get('lista_bultos', '1;1;1;1;1'),
+            'tipo_porte': data.get('tipo_porte', 'P'),
+            'producto': data.get('producto', '2'),
+            'servicio': data.get('servicio', '1'),
+
+            'dia_recogida': data.get('dia_recogida'),
+            'mes_recogida': data.get('mes_recogida'),
+            'anyo_recogida': data.get('anyo_recogida'),
+            'hora_manana_de': data.get('hora_manana_de'),
+            'hora_manana_a': data.get('hora_manana_a'),
+            'hora_tarde_de': data.get('hora_tarde_de'),
+            'hora_tarde_a': data.get('hora_tarde_a'),
+
+            'ultima_recogida_dia': data.get('ultima_recogida_dia', ''),
+            'tipo_recogida': data.get('tipo_recogida', 'R'),
+            'tipo_envio': data.get('tipo_envio', 'N'),
+            'aviso': data.get('aviso', 'N'),
+            'tipo_aviso': data.get('tipo_aviso', ''),
+            'entrega_nave': data.get('entrega_nave', 'N'),
+            'entrega_sabado': data.get('entrega_sabado', 'N'),
+            'num_referencia': data.get('num_referencia'),
+            'notas': data.get('notas', ''),
+            'valor_declarado': data.get('valor_declarado', '0')
+        }
+        url = 'https://ws.seur.com/webseur/services/WSCrearRecogida'
+        if self.is_test_config:
+            url = 'https://wspre.seur.com/webseur/services/WSCrearRecogida'
+        xml = tmpl.generate(**vals).render()
+
+        result = self.connect(url, xml)
+        dom = parseString(result)
+        info = parseString(
+            dom.getElementsByTagName('out')[0].childNodes[0].data.
+            encode('utf-8'))
+        error = info.getElementsByTagName('ERROR').pop()
+        error_code = False
+        error_description = False
+        if error:
+            error_code = error.getElementsByTagName('CODIGO').pop()\
+                .childNodes[0].data
+            error_description = error.getElementsByTagName('DESCRIPCION')\
+                .pop().childNodes[0].data
+        return error_code, error_description
 
     def info(self, data):
         """
@@ -220,6 +347,9 @@ class Picking(API):
             vals['ecb_code'] = self.context.get('ecb_code', '2C')
 
         url = 'http://cit.seur.com/CIT-war/services/ImprimirECBWebService'
+        if self.is_test_config:
+            url = 'http://citpre.seur.com/CIT-war/services/'\
+                'ImprimirECBWebService'
         xml = tmpl.generate(**vals).render()
 
         result = self.connect(url, xml)
@@ -261,6 +391,9 @@ class Picking(API):
             vals['date'] = '%s-%s-%s' % (d.year, d.strftime('%m'), d.strftime('%d'))
 
         url = 'http://cit.seur.com/CIT-war/services/DetalleBultoPDFWebService'
+        if self.is_test_config:
+            url = 'http://citpre.seur.com/CIT-war/services/'\
+                'DetalleBultoPDFWebService'
         xml = tmpl.generate(**vals).render()
 
         result = self.connect(url, xml)
