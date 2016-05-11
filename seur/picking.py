@@ -225,15 +225,55 @@ class Picking(API):
         info = parseString(
             dom.getElementsByTagName('out')[0].childNodes[0].data.
             encode('utf-8'))
-        error = info.getElementsByTagName('ERROR').pop()
+        pickup_ref = False
+        pickup_num = False
+        amount = False
         error_code = False
         error_description = False
-        if error:
-            error_code = error.getElementsByTagName('CODIGO').pop()\
+        pick = info.getElementsByTagName('RECOGIDA')
+        error = info.getElementsByTagName('ERROR')
+        if pick:
+            pickup_ref = info.getElementsByTagName('LOCALIZADOR').pop()\
                 .childNodes[0].data
-            error_description = error.getElementsByTagName('DESCRIPCION')\
+            pickup_num = info.getElementsByTagName('NUM_RECOGIDA').pop()\
+                .childNodes[0].data
+            amount = info.getElementsByTagName('TASACION').pop()\
+                .childNodes[0].data
+        if error:
+            error_code = info.getElementsByTagName('CODIGO').pop()\
+                .childNodes[0].data
+            error_description = info.getElementsByTagName('DESCRIPCION')\
                 .pop().childNodes[0].data
-        return error_code, error_description
+        return pickup_ref, pickup_num, amount, error_code, error_description
+
+    def cancel_pickup(self, pickup_num, pickup_ref):
+        tmpl = loader.load('pickup_service_cancel.xml')
+
+        if not self.ws_username or not self.ws_password:
+            raise Exception(
+                'You have not set the username and password for ws.seur.com '
+                'and are necessary for a pickup service.')
+
+        url = 'https://ws.seur.com/webseur/services/WSCrearRecogida'
+        if self.is_test_config:
+            url = 'https://wspre.seur.com/webseur/services/WSCrearRecogida'
+        vals = {
+            'username': self.ws_username,
+            'password': self.ws_password,
+            'pickup_ref': pickup_ref,
+            'pickup_num': pickup_num
+        }
+        xml = tmpl.generate(**vals).render()
+        result = self.connect(url, xml)
+        dom = parseString(result)
+        info = dom.getElementsByTagName('out')[0].childNodes[0].data
+        error = info
+        # The label for success and error is the same, so we have to search
+        # the word 'exito' but actually we search just 'xito' because the 'e'
+        # comes with accent mark.
+        if info.find('xito'):
+            error = False
+        return info, error
 
     def info(self, data):
         """

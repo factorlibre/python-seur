@@ -1,0 +1,105 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cre="http://crearRecogida.servicios.webseur" xmlns:py="http://genshi.edgewall.org/">
+    <soapenv:Header/>
+    <py:def function="Recogida()">
+        <recogida>
+            <!-- The order is important -->
+            <usuario>${username}</usuario>
+            <password>${password}</password>
+            <razonSocial>${razon_social}</razonSocial>
+            <nombreEmpresa>${nombre_empresa}</nombreEmpresa>
+            <nombreContactoOrdenante>${nombre_ordenante}</nombreContactoOrdenante>
+            <apellidosContactoOrdenante>${apellidos_ordenante}</apellidosContactoOrdenante>
+            <prefijoTelefonoOrdenante>${pref_tel_ordenante}</prefijoTelefonoOrdenante>
+            <telefonoOrdenante>${tel_ordenante}</telefonoOrdenante>
+            <prefijoFaxOrdenante>${pref_fax_ordenante}</prefijoFaxOrdenante>
+            <faxOrdenante>${fax_ordenante}</faxOrdenante>
+            <nifOrdenante>${nif_ordenante}</nifOrdenante>
+            <paisNifOrdenante>${pais_nif_ordenante}</paisNifOrdenante>
+            <mailOrdenante>${mail_ordenante}</mailOrdenante>
+            <tipoViaOrdenante>${tipo_via_ordenante}</tipoViaOrdenante>
+            <calleOrdenante>${calle_ordenante}</calleOrdenante>
+            <tipoNumeroOrdenante>${tipo_num_ordenante}</tipoNumeroOrdenante>
+            <numeroOrdenante>${num_ordenante}</numeroOrdenante>
+            <escaleraOrdenante>${escalera_ordenante}</escaleraOrdenante>
+            <pisoOrdenante>${piso_ordenante}</pisoOrdenante>
+            <puertaOrdenante>${puerta_ordenante}</puertaOrdenante>
+            <codigoPostalOrdenante>${cp_ordenante}</codigoPostalOrdenante>
+            <poblacionOrdenante>${poblacion_ordenante}</poblacionOrdenante>
+            <provinciaOrdenante>${provincia_ordenante}</provinciaOrdenante>
+            <paisOrdenante>${pais_ordenante}</paisOrdenante>
+
+            <diaRecogida>${dia_recogida}</diaRecogida>
+            <mesRecogida>${mes_recogida}</mesRecogida>
+            <anioRecogida>${anyo_recogida}</anioRecogida>
+            <servicio>${servicio}</servicio>
+            <horaMananaDe>${hora_manana_de}</horaMananaDe>
+            <horaMananaA>${hora_manana_a}</horaMananaA>
+            <numeroBultos>${num_bultos}</numeroBultos>
+            <mercancia>${mercancia}</mercancia>
+            <horaTardeDe>${hora_tarde_de}</horaTardeDe>
+            <horaTardeA>${hora_tarde_a}</horaTardeA>
+            <tipoPorte>${tipo_porte}</tipoPorte>
+            <observaciones>${notas}</observaciones>
+            <tipoAviso>${tipo_aviso}</tipoAviso>
+            <idiomaContactoOrdenante>${idioma_ordenante}</idiomaContactoOrdenante>
+
+            <razonSocialDestino>${razon_social_destino}</razonSocialDestino>
+            <nombreContactoDestino>${nombre_destino}</nombreContactoDestino>
+            <apellidosContactoDestino>${apellidos_destino}</apellidosContactoDestino>
+            <telefonoDestino>${tel_destino}</telefonoDestino>
+            <tipoViaDestino>${tipo_via_destino}</tipoViaDestino>
+            <calleDestino>${calle_destino}</calleDestino>
+            <tipoNumeroDestino>${tipo_num_destino}</tipoNumeroDestino>
+            <numeroDestino>${num_destino}</numeroDestino>
+            <escaleraDestino>${escalera_destino}</escaleraDestino>
+            <pisoDestino>${piso_destino}</pisoDestino>
+            <puertaDestino>${puerta_destino}</puertaDestino>
+            <codigoPostalDestino>${cp_destino}</codigoPostalDestino>
+            <poblacionDestino>${poblacion_destino}</poblacionDestino>
+            <provinciaDestino>${provincia_destino}</provinciaDestino>
+            <paisDestino>${pais_destino}</paisDestino>
+            <prefijoTelefonoDestino>${pref_tel_destino}</prefijoTelefonoDestino>
+
+            <razonSocialOrigen>${razon_social_origen}</razonSocialOrigen>
+            <nombreContactoOrigen>${nombre_origen}</nombreContactoOrigen>
+            <apellidosContactoOrigen>${apellidos_origen}</apellidosContactoOrigen>
+            <telefonoRecogidaOrigen>${tel_recogida_origen}</telefonoRecogidaOrigen>
+            <tipoViaOrigen>${tipo_via_origen}</tipoViaOrigen>
+            <calleOrigen>${calle_origen}</calleOrigen>
+            <tipoNumeroOrigen>${tipo_num_origen}</tipoNumeroOrigen>
+            <numeroOrigen>${num_origen}</numeroOrigen>
+            <escaleraOrigen>${escalera_origen}</escaleraOrigen>
+            <pisoOrigen>${piso_origen}</pisoOrigen>
+            <puertaOrigen>${puerta_origen}</puertaOrigen>
+            <codigoPostalOrigen>${cp_origen}</codigoPostalOrigen>
+            <poblacionOrigen>${poblacion_origen}</poblacionOrigen>
+            <provinciaOrigen>${provincia_origen}</provinciaOrigen>
+            <paisOrigen>${pais_origen}</paisOrigen>
+            <prefijoTelefonoOrigen>${pref_tel_origen}</prefijoTelefonoOrigen>
+            <producto>${producto}</producto>
+            <entregaSabado>${entrega_sabado}</entregaSabado>
+            <entregaNave>${entrega_nave}</entregaNave>
+            <tipoEnvio>${tipo_envio}</tipoEnvio>
+            <valorDeclarado>${valor_declarado}</valorDeclarado>
+            <listaBultos>${lista_bultos}</listaBultos>
+            <cccOrdenante>${ccc_ordenante}</cccOrdenante>
+            <numeroReferencia>${num_referencia}</numeroReferencia>
+            <ultimaRecogidaDia>${ultima_recogida_dia}</ultimaRecogidaDia>
+            <nifOrigen>${nif_origen}</nifOrigen>
+            <paisNifOrigen>${pais_nif_origen}</paisNifOrigen>
+            <aviso>${aviso}</aviso>
+            <cccDonde />
+            <cccAdonde />
+            <tipoRecogida>${tipo_recogida}</tipoRecogida>
+        </recogida>
+    </py:def>
+    <soapenv:Body>
+        <cre:crearRecogida>
+            <cre:in0>
+                <![CDATA[<?xml version="1.0" encoding="ISO-8859-1"?>
+                    ${Recogida()}
+                ]]>
+            </cre:in0>
+        </cre:crearRecogida>
+    </soapenv:Body>
+</soapenv:Envelope>

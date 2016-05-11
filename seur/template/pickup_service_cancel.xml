@@ -1,0 +1,14 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cre="http://crearRecogida.servicios.webseur" xmlns:py="http://genshi.edgewall.org/">
+    <soapenv:Header/>
+    <py:def function="AnularRecogida()">
+            <cre:in0>${pickup_ref}</cre:in0>
+            <cre:in1>${pickup_num}</cre:in1>
+            <cre:in2>${username}</cre:in2>
+            <cre:in3>${password}</cre:in3>
+    </py:def>
+    <soapenv:Body>
+        <cre:anularRecogida>
+            ${AnularRecogida()}
+        </cre:anularRecogida>
+    </soapenv:Body>
+</soapenv:Envelope>
