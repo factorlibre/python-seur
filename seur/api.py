@@ -101,6 +101,7 @@ class API(object):
         
         Return XML object
         """
+        xml = xml.encode('utf-8')
         headers={}
         request = urllib2.Request(url, xml, headers)
         response = urllib2.urlopen(request)
