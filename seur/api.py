@@ -2,7 +2,7 @@
 #this repository contains the full copyright notices and license terms.
 
 from xml.dom.minidom import parseString
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import os
 import genshi
 import genshi.template
@@ -103,8 +103,8 @@ class API(object):
         """
         xml = xml.encode('utf-8')
         headers={}
-        request = urllib2.Request(url, xml, headers)
-        response = urllib2.urlopen(request)
+        request = urllib.request.Request(url, xml, headers)
+        response = urllib.request.urlopen(request)
         return response.read()
 
     def test_connection(self):

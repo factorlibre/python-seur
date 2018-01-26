@@ -17,16 +17,16 @@ from seur.picking import *
 from seur.utils import services
 from base64 import decodestring
 
-print "Seur services"
+print("Seur services")
 services = services()
-print services
+print(services)
 
 with API(username, password, vat, franchise, seurid, ci, ccc, context) as seur_api:
-    print "Test connection"
-    print seur_api.test_connection()
+    print("Test connection")
+    print(seur_api.test_connection())
 
 with Picking(username, password, vat, franchise, seurid, ci, ccc, context) as picking_api:
-    print "Send a new shipment - Label ECB"
+    print("Send a new shipment - Label ECB")
 
     data = {}
     data['servicio'] = '1'
@@ -57,29 +57,29 @@ with Picking(username, password, vat, franchise, seurid, ci, ccc, context) as pi
     reference, label, error = picking_api.create(data)
 
     if error:
-        print error
+        print(error)
 
-    print reference
+    print(reference)
 
     with open("/tmp/seur-label.txt","wb") as f:
         f.write(label)
-    print "Generated label in /tmp/seur-label.txt"
+    print("Generated label in /tmp/seur-label.txt")
 
 context['pdf'] = True
 with Picking(username, password, vat, franchise, seurid, ci, ccc, context) as picking_api:
-    print "Send a new shipment - Label PDF"
+    print("Send a new shipment - Label PDF")
     reference, label, error = picking_api.create(data)
 
     if error:
-        print error
+        print(error)
 
-    print reference
+    print(reference)
     with open("/tmp/seur-label.pdf","wb") as f:
         f.write(decodestring(label))
-    print "Generated PDF label in /tmp/seur-label.pdf"
+    print("Generated PDF label in /tmp/seur-label.pdf")
 
 with Picking(username_expedicion, password_expedicion, vat, franchise, seurid, ci, ccc, context) as picking_api:
-    print "Get info picking"
+    print("Get info picking")
     data = {}
 
     data['expedicion'] = 'S'
@@ -88,22 +88,22 @@ with Picking(username_expedicion, password_expedicion, vat, franchise, seurid, c
     data['public'] = 'N'
 
     info = picking_api.info(data)
-    print info
+    print(info)
 
 with Picking(username_expedicion, password_expedicion, vat, franchise, seurid, ci, ccc, context) as picking_api:
 
-    print "Get list picking"
+    print("Get list picking")
     data = {}
 
     data['expedicion'] = 'S'
     data['public'] = 'N'
 
     info = picking_api.list(data)
-    print info
+    print(info)
 
 context['pdf'] = True
 with Picking(username, password, vat, franchise, seurid, ci, ccc, context) as picking_api:
-    print "Get Label PDF"
+    print("Get Label PDF")
 
     data = {}
     data['servicio'] = '1'
@@ -134,23 +134,23 @@ with Picking(username, password, vat, franchise, seurid, ci, ccc, context) as pi
 
     with open("/tmp/seur-label.pdf","wb") as f:
         f.write(decodestring(label))
-    print "Generated PDF label in /tmp/seur-label.pdf"
+    print("Generated PDF label in /tmp/seur-label.pdf")
 
 with Picking(username, password, vat, franchise, seurid, ci, ccc, context) as picking_api:
-    print "Get Manifiesto"
+    print("Get Manifiesto")
 
     data = {}
     manifiesto = picking_api.manifiesto(data)
 
     with open("/tmp/seur-manifiesto.pdf","wb") as f:
         f.write(decodestring(manifiesto))
-    print "Generated PDF label in /tmp/seur-manifiesto.pdf"
+    print("Generated PDF label in /tmp/seur-manifiesto.pdf")
 
 with Picking(username, password, vat, franchise, seurid, ci, ccc, context) as picking_api:
-    print "Get values from Seur about city or zip"
+    print("Get values from Seur about city or zip")
 
     city = 'Granollers'
-    print picking_api.city(city)
+    print(picking_api.city(city))
 
     zip = '08720'
-    print picking_api.zip(zip)
+    print(picking_api.zip(zip))
