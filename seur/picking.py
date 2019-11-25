@@ -223,7 +223,7 @@ class Picking(API):
         result = self.connect(url, xml)
         dom = parseString(result)
         info = parseString(
-            dom.getElementsByTagName('out')[0].childNodes[0].data.
+            dom.getElementsByTagName('ns1:out')[0].childNodes[0].data.
             encode('utf-8'))
         pickup_ref = False
         pickup_num = False
@@ -266,7 +266,7 @@ class Picking(API):
         xml = tmpl.generate(**vals).render()
         result = self.connect(url, xml)
         dom = parseString(result)
-        info = dom.getElementsByTagName('out')[0].childNodes[0].data
+        info = dom.getElementsByTagName('ns1:out')[0].childNodes[0].data
         error = info
         # The label for success and error is the same, so we have to search
         # the word 'exito' but actually we search just 'xito' because the 'e'
@@ -299,7 +299,7 @@ class Picking(API):
         dom = parseString(result)
 
         #Get info
-        info = dom.getElementsByTagName('out')
+        info = dom.getElementsByTagName('ns1:out')
         return info[0].firstChild.data
 
     def list(self, data):
@@ -331,7 +331,7 @@ class Picking(API):
         dom = parseString(result)
 
         #Get list
-        info = dom.getElementsByTagName('out')
+        info = dom.getElementsByTagName('ns1:out')
         return info[0].firstChild.data
 
     def label(self, data):
