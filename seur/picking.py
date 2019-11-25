@@ -464,7 +464,7 @@ class Picking(API):
         result = self.connect(url, xml)
 
         dom = parseString(result)
-        info = dom.getElementsByTagName('out')
+        info = dom.getElementsByTagName('ns1:out')
         data = info[0].firstChild.data
         dom2 = parseString(data.encode('utf-8'))
         registros = dom2.getElementsByTagName('REGISTROS')
