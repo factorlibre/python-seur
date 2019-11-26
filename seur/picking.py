@@ -223,7 +223,7 @@ class Picking(API):
         result = self.connect(url, xml)
         dom = parseString(result)
         info = parseString(
-            dom.getElementsByTagName('ns1:out')[0].childNodes[0].data.
+            dom.getElementsByTagName('out')[0].childNodes[0].data.
             encode('utf-8'))
         pickup_ref = False
         pickup_num = False
