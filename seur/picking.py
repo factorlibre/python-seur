@@ -69,6 +69,7 @@ class Picking(API):
             'cliente_pais': data.get('cliente_pais', ''),
             'cliente_email': data.get('cliente_email', ''),
             'cliente_telefono': data.get('cliente_telefono', ''),
+            'cliente_movil': data.get('cliente_movil', ''),
             'cliente_atencion': data.get('cliente_atencion', ''),
             'aviso_preaviso': data.get('aviso_preaviso', 'N'),
             'aviso_reparto': data.get('aviso_reparto', 'N'),

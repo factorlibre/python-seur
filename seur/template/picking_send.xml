@@ -32,6 +32,7 @@
                         <pais_consignatario>${cliente_pais}</pais_consignatario>
                         <email_consignatario>${cliente_email}</email_consignatario>
                         <telefono_consignatario>${cliente_telefono}</telefono_consignatario>
+                        <sms_consignatario>${cliente_movil}</sms_consignatario>
                         <atencion_de>${cliente_atencion}</atencion_de>
                         <test_preaviso>${aviso_preaviso}</test_preaviso>
                         <test_reparto>${aviso_reparto}</test_reparto>
