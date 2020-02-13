@@ -39,6 +39,8 @@
                         <test_email>${aviso_email}</test_email>
                         <test_sms>${aviso_sms}</test_sms>
                         <id_mercancia>${id_mercancia}</id_mercancia>
+                        <entrega_sabado>${entrega_sabado}</entrega_sabado>
+                        <idEntregaSabado>${id_entrega_sabado}</idEntregaSabado>
                     </bulto>
                     </exp>
                 </root>
