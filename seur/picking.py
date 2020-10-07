@@ -85,9 +85,9 @@ class Picking(API):
             vals['printer_model'] = self.context.get('printer_model', 'LP2844-Z')
             vals['ecb_code'] = self.context.get('ecb_code', '2C')
 
-        url = 'http://cit.seur.com/CIT-war/services/ImprimirECBWebService'
+        url = 'https://cit.seur.com/CIT-war/services/ImprimirECBWebService'
         if self.is_test_config:
-            url = 'http://citpre.seur.com/CIT-war/services/'\
+            url = 'https://citpre.seur.com/CIT-war/services/'\
                 'ImprimirECBWebService'
         xml = tmpl.generate(**vals).render()
 
@@ -394,9 +394,9 @@ class Picking(API):
             vals['printer_model'] = self.context.get('printer_model', 'LP2844-Z')
             vals['ecb_code'] = self.context.get('ecb_code', '2C')
 
-        url = 'http://cit.seur.com/CIT-war/services/ImprimirECBWebService'
+        url = 'https://cit.seur.com/CIT-war/services/ImprimirECBWebService'
         if self.is_test_config:
-            url = 'http://citpre.seur.com/CIT-war/services/'\
+            url = 'https://citpre.seur.com/CIT-war/services/'\
                 'ImprimirECBWebService'
         xml = tmpl.generate(**vals).render()
 
@@ -438,9 +438,9 @@ class Picking(API):
             d = datetime.datetime.now()
             vals['date'] = '%s-%s-%s' % (d.year, d.strftime('%m'), d.strftime('%d'))
 
-        url = 'http://cit.seur.com/CIT-war/services/DetalleBultoPDFWebService'
+        url = 'https://cit.seur.com/CIT-war/services/DetalleBultoPDFWebService'
         if self.is_test_config:
-            url = 'http://citpre.seur.com/CIT-war/services/'\
+            url = 'https://citpre.seur.com/CIT-war/services/'\
                 'DetalleBultoPDFWebService'
         xml = tmpl.generate(**vals).render()
 

@@ -122,9 +122,9 @@ class API(object):
             'seurid': self.seurid,
             }
 
-        url = 'http://cit.seur.com/CIT-war/services/ImprimirECBWebService'
+        url = 'https://cit.seur.com/CIT-war/services/ImprimirECBWebService'
         if self.is_test_config:
-            url = 'http://citpre.seur.com/CIT-war/services/ImprimirECBWebService'
+            url = 'https://citpre.seur.com/CIT-war/services/ImprimirECBWebService'
         xml = tmpl.generate(**vals).render()
         result = self.connect(url, xml)
         dom = parseString(result)
