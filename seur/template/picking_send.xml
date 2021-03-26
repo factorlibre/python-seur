@@ -41,6 +41,7 @@
                         <id_mercancia>${id_mercancia}</id_mercancia>
                         <entrega_sabado>${entrega_sabado}</entrega_sabado>
                         <idEntregaSabado>${id_entrega_sabado}</idEntregaSabado>
+                        <cod_centro>${cod_centro}</cod_centro>
                     </bulto>
                     </exp>
                 </root>
