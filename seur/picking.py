@@ -78,7 +78,8 @@ class Picking(API):
             'id_mercancia': data.get('id_mercancia', ''),
             'entrega_sabado': data.get('entrega_sabado', 'N'),
             'id_entrega_sabado': data.get('id_entrega_sabado', 'N'),
-            'cod_centro': data.get('cod_centro', '')
+            'cod_centro': data.get('cod_centro', ''),
+            'pudoID': data.get('pudoID', '')
         }
 
         if not self.context.get('pdf'):

@@ -42,6 +42,7 @@
                         <entrega_sabado>${entrega_sabado}</entrega_sabado>
                         <idEntregaSabado>${id_entrega_sabado}</idEntregaSabado>
                         <cod_centro>${cod_centro}</cod_centro>
+                        <pudoID>${pudoID}</pudoID>
                     </bulto>
                     </exp>
                 </root>
