@@ -43,6 +43,10 @@
                         <idEntregaSabado>${id_entrega_sabado}</idEntregaSabado>
                         <cod_centro>${cod_centro}</cod_centro>
                         <pudoID>${pudoID}</pudoID>
+                        <clave_aduana_origen>${clave_aduana_origen}</clave_aduana_origen>
+                        <clave_aduana_destino>${clave_aduana_destino}</clave_aduana_destino>
+                        <tipo_mercancia>${tipo_mercancia}</tipo_mercancia>
+                        <valor_declarado>${valor_declarado}</valor_declarado>
                     </bulto>
                     </exp>
                 </root>

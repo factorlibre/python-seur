@@ -79,7 +79,11 @@ class Picking(API):
             'entrega_sabado': data.get('entrega_sabado', 'N'),
             'id_entrega_sabado': data.get('id_entrega_sabado', 'N'),
             'cod_centro': data.get('cod_centro', ''),
-            'pudoID': data.get('pudoID', '')
+            'pudoID': data.get('pudoID', ''),
+            'clave_aduana_origen': data.get('clave_aduana_origen', 'F'),
+            'clave_aduana_destino': data.get('clave_aduana_destino', 'F'),
+            'tipo_mercancia': data.get('tipo_mercancia', 'N'),
+            'valor_declarado': data.get('valor_declarado', 0),
         }
 
         if not self.context.get('pdf'):
